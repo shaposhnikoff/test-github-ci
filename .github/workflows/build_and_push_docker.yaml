@@ -57,6 +57,7 @@ jobs:
         working-directory: arm
 
   test:
+    needs: push_arm_container
     name: Run test suite
     runs-on: ubuntu-latest
     #env:
