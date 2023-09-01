@@ -1,0 +1,21 @@
+name: Deploy
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      # Add your deployment steps here, like deploying to a server or cloud platform.
+      # Example:
+      - name: Deploy to Production
+        run: |
+          # Add your deployment commands here
+          echo "Deploying to production..."
