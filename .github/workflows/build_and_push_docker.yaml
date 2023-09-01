@@ -55,3 +55,24 @@ jobs:
         run: |
           docker buildx build --push --platform linux/arm/v7 --tag shaposhnikoff/test2:arm7 .
         working-directory: arm
+
+  test:
+    name: Run test suite
+    runs-on: ubuntu-latest
+    #env:
+    #  COMPOSE_FILE: .ci/docker-compose.yml
+    #  DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
+    #  DOCKER_PASS: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to DockerHub
+      run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+    - name: Build docker images
+      run: docker-compose build
+
+    - name: Run tests
+      run: docker-compose run test
