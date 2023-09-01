@@ -1,0 +1,43 @@
+name: Build and Push Docker Containers
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Login to Quay.io
+        uses: redhat-actions/quay-login@v1
+        with:
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+          registry: quay.io
+
+      - name: Build and Push x86 Docker Container
+        run: |
+          docker build -t your-dockerhub-username/your-repo-name:latest .
+          docker tag your-dockerhub-username/your-repo-name:latest your-dockerhub-username/your-repo-name:x86
+          docker buildx create --use
+          docker buildx build --push --platform linux/amd64 --tag your-dockerhub-username/your-repo-name:x86 .
+        working-directory: ./path/to/Dockerfile-directory
+
+      - name: Build and Push ARM7 Docker Container
+        run: |
+          docker build -t your-dockerhub-username/your-repo-name:latest .
+          docker tag your-dockerhub-username/your-repo-name:latest your-dockerhub-username/your-repo-name:arm7
+          docker buildx create --use
+          docker buildx build --push --platform linux/arm/v7 --tag your-dockerhub-username/your-repo-name:arm7 .
+        working-directory: ./path/to/Dockerfile-directory
