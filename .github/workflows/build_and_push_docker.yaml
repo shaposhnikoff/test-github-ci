@@ -8,7 +8,6 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -19,13 +18,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-#      - name: Login to Quay.io
-#        uses: redhat-actions/quay-login@v1
-#        with:
-#          username: ${{ secrets.QUAY_USERNAME }}
-#          password: ${{ secrets.QUAY_PASSWORD }}
-#          registry: quay.io
-
+  build_x86_container:
+     runs-on: ubuntu-latest
+     needs: build-and-push
+     steps:
       - name: Build and Push x86 Docker Container
         run: |
           docker build -t shaposhnikoff/test1:latest .
@@ -34,6 +30,10 @@ jobs:
           docker buildx build --push --platform linux/amd64 --tag shaposhnikoff/test1:x86 .
         working-directory: x86
 
+  build_arm_container:
+     needs: build-and-push
+     runs-on: ubuntu-latest
+     steps:
       - name: Build and Push ARM7 Docker Container
         run: |
           docker build -t shaposhnikoff/test2:latest .
