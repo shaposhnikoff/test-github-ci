@@ -28,16 +28,16 @@ jobs:
 
       - name: Build and Push x86 Docker Container
         run: |
-          docker build -t your-dockerhub-username/your-repo-name:latest .
-          docker tag your-dockerhub-username/your-repo-name:latest your-dockerhub-username/your-repo-name:x86
+          docker build -t shaposhnikoff/test1:latest .
+          docker tag shaposhnikoff/test1:latest shaposhnikoff/test1:x86
           docker buildx create --use
-          docker buildx build --push --platform linux/amd64 --tag your-dockerhub-username/your-repo-name:x86 .
-        working-directory: ./path/to/Dockerfile-directory
+          docker buildx build --push --platform linux/amd64 --tag shaposhnikoff/test1:x86 .
+        working-directory: ./x86
 
       - name: Build and Push ARM7 Docker Container
         run: |
-          docker build -t your-dockerhub-username/your-repo-name:latest .
-          docker tag your-dockerhub-username/your-repo-name:latest your-dockerhub-username/your-repo-name:arm7
+          docker build -t shaposhnikoff/test2:latest .
+          docker tag shaposhnikoff/test2:latest shaposhnikoff/test2:arm7
           docker buildx create --use
-          docker buildx build --push --platform linux/arm/v7 --tag your-dockerhub-username/your-repo-name:arm7 .
-        working-directory: ./path/to/Dockerfile-directory
+          docker buildx build --push --platform linux/arm/v7 --tag shaposhnikoff/test2:arm7 .
+        working-directory: ./arm
