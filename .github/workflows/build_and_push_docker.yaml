@@ -1,3 +1,4 @@
+
 name: Build and Push Docker Containers
 
 on:
@@ -22,6 +23,8 @@ jobs:
      runs-on: ubuntu-latest
      needs: build-and-push
      steps:
+      - name: check dir
+        run: pwd
       - name: Build and Push x86 Docker Container
         run: |
           docker build -t shaposhnikoff/test1:latest .
@@ -35,7 +38,7 @@ jobs:
      runs-on: ubuntu-latest
      steps:
       - name: Build and Push ARM7 Docker Container
-        run: |
+        run: |        
           docker build -t shaposhnikoff/test2:latest .
           #docker tag shaposhnikoff/test2:latest shaposhnikoff/test2:arm7
           #docker buildx create --use
