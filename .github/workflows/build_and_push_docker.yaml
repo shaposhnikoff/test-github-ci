@@ -25,10 +25,6 @@ jobs:
      steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: check dir
-        run: pwd
-      - name: list dir
-        run: ls -la
       - name: Build and Push x86 Docker Container
         run: |
           docker build -t shaposhnikoff/test1:latest .
@@ -41,6 +37,8 @@ jobs:
      needs: build-and-push
      runs-on: ubuntu-latest
      steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
       - name: Build and Push ARM7 Docker Container
         run: |        
           docker build -t shaposhnikoff/test2:latest .
