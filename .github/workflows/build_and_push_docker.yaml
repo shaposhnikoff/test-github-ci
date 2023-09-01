@@ -64,7 +64,7 @@ jobs:
       - name: Build and Push ARM7 Docker Container
         run: |
           echo "docker push --platform linux/arm/v7 --tag shaposhnikoff/test2:arm7 ."
-        working-directory: arm
+        #working-directory: arm
 
   test:
     needs: push_arm_container
