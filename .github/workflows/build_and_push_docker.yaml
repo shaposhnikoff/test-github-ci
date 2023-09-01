@@ -19,12 +19,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Login to Quay.io
-        uses: redhat-actions/quay-login@v1
-        with:
-          username: ${{ secrets.QUAY_USERNAME }}
-          password: ${{ secrets.QUAY_PASSWORD }}
-          registry: quay.io
+#      - name: Login to Quay.io
+#        uses: redhat-actions/quay-login@v1
+#        with:
+#          username: ${{ secrets.QUAY_USERNAME }}
+#          password: ${{ secrets.QUAY_PASSWORD }}
+#          registry: quay.io
 
       - name: Build and Push x86 Docker Container
         run: |
