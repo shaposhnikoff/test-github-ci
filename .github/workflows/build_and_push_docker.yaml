@@ -41,3 +41,12 @@ jobs:
           docker buildx create --use
           docker buildx build --push --platform linux/arm/v7 --tag shaposhnikoff/test2:arm7 .
         working-directory: arm
+
+  push_arm_container:
+     needs: build_arm_container
+     runs-on: ubuntu-latest
+     steps:
+      - name: Build and Push ARM7 Docker Container
+        run: |
+          docker buildx build --push --platform linux/arm/v7 --tag shaposhnikoff/test2:arm7 .
+        working-directory: arm
