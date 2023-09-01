@@ -25,6 +25,8 @@ jobs:
      steps:
       - name: check dir
         run: pwd
+      - name: list dir
+        run: ls -la
       - name: Build and Push x86 Docker Container
         run: |
           docker build -t shaposhnikoff/test1:latest .
